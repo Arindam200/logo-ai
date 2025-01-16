@@ -1,0 +1,39 @@
+import { Button } from "./button";
+import Link from "next/link";
+
+const Navigation = () => {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="text-xl font-semibold">
+          LogoAI
+        </Link>
+        
+        <div className="hidden md:flex items-center space-x-8">
+          <Link href="/generate" className="text-gray-500 hover:text-primary transition-colors">
+            Generate
+          </Link>
+          <Link href="/gallery" className="text-gray-500 hover:text-primary transition-colors">
+            Gallery
+          </Link>
+          <Link href="/pricing" className="text-gray-500 hover:text-primary transition-colors">
+            Pricing
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost" className="hidden md:inline-flex">
+            Sign In
+          </Button>
+          <Link href="/generate">
+            <Button className="text-white">
+              Get Started
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navigation;
