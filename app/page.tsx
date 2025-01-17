@@ -6,6 +6,7 @@ import Navigation from "@/components/ui/Navigation";
 import Footer from "@/components/ui/Footer";
 import Link from 'next/link';
 
+
 const Index = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
 
@@ -38,7 +39,7 @@ const Index = () => {
           </div>
 
           {/* Hero Image */}
-          <div className="relative mt-16">
+          {/* <div className="relative mt-16">
             <div className="flex justify-center">
               <img
                 src="https://antimetal.com/images/hero/preview.png"
@@ -46,7 +47,7 @@ const Index = () => {
                 className="rounded-3xl shadow-2xl max-w-[90%] w-auto h-auto"
               />
             </div>
-          </div>
+          </div> */}
         </section>
 
         <section className="py-24 bg-surface px-6 lg:px-8">

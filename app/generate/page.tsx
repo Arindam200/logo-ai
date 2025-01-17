@@ -26,10 +26,12 @@ import {
 import { motion } from 'framer-motion';
 
 const STYLE_OPTIONS = [
-  { id: 'minimal', name: 'Minimal', icon: '○' },
-  { id: 'tech', name: 'Technology', icon: '⚡' },
-  { id: 'corporate', name: 'Corporate', icon: '◆' },
-  { id: 'creative', name: 'Creative', icon: '★' },
+  { id: 'minimal', name: 'Minimal', icon: '○', details: "Flashy, attention grabbing, bold, futuristic, and eye-catching. Use vibrant neon colors with metallic, shiny, and glossy accents."},
+  { id: 'tech', name: 'Technology', icon: '⚡', details: "highly detailed, sharp focus, cinematic, photorealistic, Minimalist, clean, sleek, neutral color pallete with subtle accents, clean lines, shadows, and flat."},
+  { id: 'corporate', name: 'Corporate', icon: '◆', details: "modern, forward-thinking, flat design, geometric shapes, clean lines, natural colors with subtle accents, use strategic negative space to create visual interest."},
+  { id: 'creative', name: 'Creative', icon: '★', details: "playful, lighthearted, bright bold colors, rounded shapes, lively."},
+  { id: 'abstract', name: 'Abstract', icon: '□', details: "abstract, artistic, creative, unique shapes, patterns, and textures to create a visually interesting and wild logo."},
+  { id: 'flashy', name: 'Flashy', icon: '💡', details: "Flashy, attention grabbing, bold, futuristic, and eye-catching. Use vibrant neon colors with metallic, shiny, and glossy accents."},
 ];
 
 const MODEL_OPTIONS = [
@@ -156,11 +158,17 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[screen-height] overflow-y-hidden rounded-lg">
+      <div className="text-center mb-12">
+          <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-4">
+            Create Your Perfect Logo
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-xl">Create unique, professional logos in minutes.</p>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div>
-            <Card>
+            <Card className="h-full">
               <CardContent className="p-6 space-y-4">
                 {/* Brand Name */}
                 <div>
@@ -176,7 +184,7 @@ export default function Home() {
                 {/* Style Selection */}
                 <div>
                   <label className="text-sm font-medium text-slate-700">Style</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
                     {STYLE_OPTIONS.map((style) => (
                       <motion.button
                         key={style.id}
@@ -385,7 +393,7 @@ export default function Home() {
                   </motion.div>
                 ) : (
                   <motion.div 
-                    className="h-full flex items-center justify-center text-center p-8"
+                    className="h-full flex items-center text-center p-8 pt-44"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
@@ -393,10 +401,10 @@ export default function Home() {
                     <div className="max-w-md space-y-4">
                       <Palette className="h-12 w-12 mx-auto text-blue-600 opacity-50" />
                       <h3 className="text-xl font-semibold text-slate-800">
-                        Create Your Perfect Logo
+                        Your Logo will appear here
                       </h3>
                       <p className="text-slate-500">
-                        Fill in your brand details and let our AI generate a unique, professional logo
+                        For best results, add additional details and let our AI generate a unique, professional logo
                         tailored to your business.
                       </p>
                     </div>
@@ -406,7 +414,16 @@ export default function Home() {
             </Card>
           </div>
         </div>
+        <div className="flex justify-center items-center mt-10 gap-x-4">
+          <div>
+            Built with love by <Link href="https://dub.sh/arindam" className="text-blue-600 hover:text-blue-700">Arindam</Link> 
+          </div>
+          <div>
+            Powered by <Link href="https://dub.sh/nebius" className="text-blue-600 hover:text-blue-700">Nebius AI</Link>
+          </div>
+        </div>
       </main>
     </div>
+      
   );
 }
