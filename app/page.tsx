@@ -28,13 +28,13 @@ const Index = () => {
             <p className="mx-auto max-w-2xl text-lg text-gray-500 mb-8">
               Generate unique, professional logos in seconds. Perfect for businesses, startups, and personal brands.
             </p>
-            <div className="flex justify-center gap-4">
-              <Link href="/generate" className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+            <div className="flex max-sm:flex-col-reverse justify-center gap-4">
+              <Link href="/generate" className="px-6 py-3 bg-primary  text-white rounded-lg hover:bg-primary/90 transition-colors">
                 Generate Your Logo
               </Link>
-              <button className="px-6 py-3 glass rounded-lg hover:bg-white/20 hover:border hover:border-gray-500 transition-colors flex items-center gap-2">
+              <Link href="/gallery" className="px-6 py-3 glass rounded-lg justify-center hover:bg-white/20 hover:border hover:border-gray-500 transition-colors flex items-center gap-2">
                 View Examples <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
             </div>
           </div>
 
