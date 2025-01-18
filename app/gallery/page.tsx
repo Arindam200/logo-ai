@@ -4,33 +4,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/ui/Navigation';
-import { useState } from 'react';
-
-const RECENT_LOGOS = [
-  {
-    id: 1,
-    companyName: 'TechFlow',
-    style: 'Minimal',
-    primaryColor: '#2563EB',
-    backgroundColor: '#FFFFFF',
-    imageUrl: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=400&h=400&fit=crop',
-    createdAt: '2024-03-20T10:30:00Z'
-  },
-  {
-    id: 2,
-    companyName: 'GreenLeaf',
-    style: 'Organic', 
-    primaryColor: '#059669',
-    backgroundColor: '#F0FDF4',
-    imageUrl: 'https://images.unsplash.com/photo-1557683311-eac922347aa1?w=400&h=400&fit=crop',
-    createdAt: '2024-03-19T15:45:00Z'
-  },
-  // Add 8-10 more sample logos here with different styles and colors
-];
+import { useState, useEffect } from 'react';
+import { allLogos } from '../actions/actions';
+import { SelectLogo } from '@/db/schema';
 
 export default function Gallery() {
+  const [logos, setLogos] = useState<SelectLogo[]>([]);
   const [showAll, setShowAll] = useState(false);
-  const displayedLogos = showAll ? RECENT_LOGOS : RECENT_LOGOS.slice(0, 12);
+  
+  useEffect(() => {
+    const fetchLogos = async () => {
+      const fetchedLogos = await allLogos();
+      if (fetchedLogos) {
+        setLogos(fetchedLogos);
+      }
+    };
+    fetchLogos();
+  }, []);
+
+  const displayedLogos = showAll ? logos : logos.slice(0, 12);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -43,32 +35,30 @@ export default function Gallery() {
               <CardContent className="p-4">
                 <div className="aspect-square rounded-lg border-2 border-dashed border-slate-200 p-4 mb-4">
                   <img
-                    src={logo.imageUrl}
-                    alt={`${logo.companyName} logo`}
+                    src={logo.image_url}
+                    alt={`${logo.username}'s logo`}
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="font-medium text-slate-800">{logo.companyName}</h3>
+                  <h3 className="font-medium text-slate-800">{logo.username}</h3>
                   <div className="flex gap-2 text-sm text-slate-500">
-                    <span>{logo.style}</span>
-                    <span>•</span>
                     <span>{new Date(logo.createdAt).toLocaleDateString()}</span>
                   </div>
                   <div className="flex gap-2">
                     <div
                       className="w-6 h-6 rounded-full border"
-                      style={{ backgroundColor: logo.primaryColor }}
+                      style={{ backgroundColor: logo.primary_color }}
                       title="Primary Color"
                     />
                     <div
                       className="w-6 h-6 rounded-full border"
-                      style={{ backgroundColor: logo.backgroundColor }}
+                      style={{ backgroundColor: logo.background_color }}
                       title="Background Color"
                     />
                   </div>
                   <Button
-                    onClick={() => window.open(logo.imageUrl, '_blank')}
+                    onClick={() => window.open(logo.image_url, '_blank')}
                     variant="outline"
                     className="w-full mt-2"
                   >
@@ -81,7 +71,7 @@ export default function Gallery() {
           ))}
         </div>
         
-        {RECENT_LOGOS.length > 12 && (
+        {logos.length > 12 && (
           <div className="flex justify-center mt-8">
             <Button
               onClick={() => setShowAll(!showAll)}

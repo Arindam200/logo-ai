@@ -4,6 +4,10 @@ import OpenAI from 'openai';
 import { z } from 'zod';
 import dedent from 'dedent';
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
+import { InsertLogo,logosTable,SelectLogo } from '@/db/schema';
+import { db } from '@/db';
+import { eq, desc } from 'drizzle-orm';
+
 export async function downloadImage(url: string) {
   'use server';
 
@@ -65,11 +69,12 @@ const styleLookup: { [key: string]: string } = {
 
 export async function generateLogo(formData: z.infer<typeof FormSchema>) {
   'use server';
-  
-
   try {
     const user = await currentUser();
-    console.log("the user is"+user)
+    if (!user) {
+      return { success: false, error: 'User not authenticated' };
+    }
+
     const validatedData = FormSchema.parse(formData);
     
     const prompt = dedent`A single logo, high-quality, award-winning professional design, made for both digital and print media, only contains a few vector shapes, ${styleLookup[validatedData.style]}
@@ -85,8 +90,22 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
       n: 1,
     });
 
-    const imageUrl = response.data[0].url;
+    const imageUrl = response.data[0].url || "";
 
+    const DatabaseData: InsertLogo = {
+      image_url: imageUrl,
+      primary_color: validatedData.primaryColor,
+      background_color: validatedData.secondaryColor,
+      username: user.username ?? user.firstName ?? 'Anonymous',
+      userId: user.id,
+    };
+
+    try {
+      await db.insert(logosTable).values(DatabaseData);
+    } catch (error) {
+      console.error('Error inserting logo into database:', error);
+      throw error;
+    }
     
     return { 
       success: true, 
@@ -98,13 +117,35 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
   }
 }
 
-export async function checkHistory(){
+export async function checkHistory() {
   const user = await currentUser();
 
-  if(!user){
+  if (!user) {
     return null;
   }
-  // console.log("the user is"+user.id)
+
+  try {
+    const userLogos = await db
+      .select()
+      .from(logosTable)
+      .where(eq(logosTable.userId, user.id))
+      .orderBy(desc(logosTable.createdAt));
+
+    return userLogos;
+  } catch (error) {
+    console.error('Error fetching user logos:', error);
+    return null;
+  }
+}
+
+export async function allLogos(){
+  try{
+    const allLogos = await db.select().from(logosTable)
+    return allLogos
+  }catch(error){
+    console.error('Error fetchiing logos'+error)
+    return null;
+  }
 }
 
   
