@@ -24,6 +24,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { motion } from 'framer-motion';
+import { useUser } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 const STYLE_OPTIONS = [
   { id: 'minimal', name: 'Minimal', icon: '○', details: "Flashy, attention grabbing, bold, futuristic, and eye-catching. Use vibrant neon colors with metallic, shiny, and glossy accents."},
@@ -77,6 +79,23 @@ export default function Home() {
   const [selectedModel, setSelectedModel] = useState<('stability-ai/sdxl' | 'dall-e-3'|'black-forest-labs/flux-schnell' | 'black-forest-labs/flux-dev')>('stability-ai/sdxl');
   const [selectedSize, setSelectedSize] = useState<('256x256'|'512x512'|'1024x1024')>('512x512');
   const [selectedQuality, setSelectedQuality] = useState<('standard' | 'hd')>('standard');
+
+  const { isSignedIn, isLoaded, user } = useUser();
+  
+  if (!isLoaded) {
+    return <div className="">
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw className="h-8 w-8 animate-spin text-blue-600" />
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    </div>;
+  }
+
+  if (!isSignedIn) {
+    return redirect('/');
+  }
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -144,15 +163,15 @@ export default function Home() {
         </div>
             <div className="flex items-center gap-4">
               <Link href="/history">
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button size="sm" className="gap-2">
                   <History className="h-4 w-4" />
                   History
                 </Button>
               </Link>
-              <Button variant="outline" size="sm">
+              {/* <Button variant="outline" size="sm">
                 <Crown className="h-4 w-4 mr-2 text-amber-500" />
                 Upgrade to Pro
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

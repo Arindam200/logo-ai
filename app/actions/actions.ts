@@ -3,6 +3,7 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
 import dedent from 'dedent';
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
 export async function downloadImage(url: string) {
   'use server';
 
@@ -65,10 +66,12 @@ const styleLookup: { [key: string]: string } = {
 export async function generateLogo(formData: z.infer<typeof FormSchema>) {
   'use server';
   
+
   try {
+    const user = await currentUser();
+    console.log("the user is"+user)
     const validatedData = FormSchema.parse(formData);
     
-    // const prompt = `Generate a single logo, high-quality, award-winning professional design, made for both digital and print media for ${validatedData.companyName}. The logo must only contain a few vector shapes and the company name should be in ${validatedData.primaryColor} color, ${styleLookup[validatedData.style]} and should be ${validatedData.symbolPreference}. The logo Text color is ${validatedData.primaryColor} and the background color is ${validatedData.secondaryColor}. Don't make spelling mistakes. ${validatedData.additionalInfo ? `Additional info: ${validatedData.additionalInfo}` : ""}`;
     const prompt = dedent`A single logo, high-quality, award-winning professional design, made for both digital and print media, only contains a few vector shapes, ${styleLookup[validatedData.style]}
 
     Primary color is ${validatedData.primaryColor.toLowerCase()} and background color is ${validatedData.secondaryColor.toLowerCase()}. The company name is ${validatedData.companyName}, make sure to include the company name in the logo. ${validatedData ? `Additional info: ${validatedData.additionalInfo}` : ""}`;
@@ -83,6 +86,7 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
     });
 
     const imageUrl = response.data[0].url;
+
     
     return { 
       success: true, 
@@ -92,6 +96,15 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
     console.error('Error generating logo:', error);
     return { success: false, error: 'Failed to generate logo' };
   }
+}
+
+export async function checkHistory(){
+  const user = await currentUser();
+
+  if(!user){
+    return null;
+  }
+  // console.log("the user is"+user.id)
 }
 
   

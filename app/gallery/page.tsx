@@ -2,12 +2,11 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { Download, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/ui/Navigation';
-import { checkHistory } from '../actions/actions';
-import { useEffect } from 'react';
-const SAMPLE_LOGOS = [
+import { useState } from 'react';
+
+const RECENT_LOGOS = [
   {
     id: 1,
     companyName: 'TechFlow',
@@ -20,30 +19,26 @@ const SAMPLE_LOGOS = [
   {
     id: 2,
     companyName: 'GreenLeaf',
-    style: 'Organic',
+    style: 'Organic', 
     primaryColor: '#059669',
     backgroundColor: '#F0FDF4',
     imageUrl: 'https://images.unsplash.com/photo-1557683311-eac922347aa1?w=400&h=400&fit=crop',
     createdAt: '2024-03-19T15:45:00Z'
-  }
+  },
+  // Add 8-10 more sample logos here with different styles and colors
 ];
 
-export default function History() {
-  useEffect(() => {
-    const checkUserHistory = async () => {
-      const history = await checkHistory();
-      console.log('User history:', history);
-    };
-    
-    checkUserHistory();
-  }, []);
-  
+export default function Gallery() {
+  const [showAll, setShowAll] = useState(false);
+  const displayedLogos = showAll ? RECENT_LOGOS : RECENT_LOGOS.slice(0, 12);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Navigation />
       <div className="max-w-7xl mx-auto mt-12 px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SAMPLE_LOGOS.map((logo) => (
+        <h1 className="text-3xl font-bold text-slate-900 mb-8">Recent Generations</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {displayedLogos.map((logo) => (
             <Card key={logo.id}>
               <CardContent className="p-4">
                 <div className="aspect-square rounded-lg border-2 border-dashed border-slate-200 p-4 mb-4">
@@ -85,6 +80,19 @@ export default function History() {
             </Card>
           ))}
         </div>
+        
+        {RECENT_LOGOS.length > 12 && (
+          <div className="flex justify-center mt-8">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              variant="outline"
+              className="gap-2"
+            >
+              {showAll ? 'Show Less' : 'See More'}
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
