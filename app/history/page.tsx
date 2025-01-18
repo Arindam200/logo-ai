@@ -3,13 +3,13 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import Navigation from '@/components/ui/Navigation';
 import { checkHistory } from '../actions/actions';
 import { useEffect, useState } from 'react';
+import { SelectLogo } from '@/db/schema';
 
 export default function History() {
-  const [logos, setLogos] = useState<any[]>([]);
+  const [logos, setLogos] = useState<SelectLogo[]>([]);
 
   useEffect(() => {
     const checkUserHistory = async () => {
@@ -17,8 +17,7 @@ export default function History() {
       if (history) {
         setLogos(history);
       }
-    };
-    
+    }; 
     checkUserHistory();
   }, []);
   
