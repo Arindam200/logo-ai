@@ -26,6 +26,7 @@ import {
 import { motion } from 'framer-motion';
 import { useUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { useToast } from "@/hooks/use-toast";
 
 const STYLE_OPTIONS = [
   { id: 'minimal', name: 'Minimal', icon: '○', details: "Flashy, attention grabbing, bold, futuristic, and eye-catching. Use vibrant neon colors with metallic, shiny, and glossy accents."},
@@ -81,6 +82,7 @@ export default function Home() {
   const [selectedQuality, setSelectedQuality] = useState<('standard' | 'hd')>('standard');
 
   const { isSignedIn, isLoaded, user } = useUser();
+  const { toast } = useToast();
   
   if (!isLoaded) {
     return <div className="">
@@ -114,9 +116,23 @@ export default function Home() {
 
       if (result.success && result.url) {
         setGeneratedLogo(result.url);
+        toast({
+          title: "Logo generated successfully",
+          description: "Your new logo is ready to download",
+        });
       } else {
-        console.error('Failed to generate logo');
+        toast({
+          title: "Generation failed",
+          description: result.error || "Failed to generate logo",
+          variant: "destructive",
+        });
       }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -132,11 +148,23 @@ export default function Home() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        toast({
+          title: "Download started",
+          description: "Your logo is being downloaded",
+        });
       } else {
-        console.error('Failed to download logo');
+        toast({
+          title: "Download failed",
+          description: "Failed to download logo",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      console.error('Error downloading logo:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred while downloading",
+        variant: "destructive",
+      });
     }
   };
 

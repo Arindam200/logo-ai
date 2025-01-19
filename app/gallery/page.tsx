@@ -7,8 +7,10 @@ import Navigation from '@/components/ui/Navigation';
 import { useState, useEffect } from 'react';
 import { allLogos } from '../actions/actions';
 import { SelectLogo } from '@/db/schema';
+import { useToast } from "@/hooks/use-toast";
 
 export default function Gallery() {
+  const { toast } = useToast();
   const [logos, setLogos] = useState<SelectLogo[]>([]);
   const [showAll, setShowAll] = useState(false);
   
@@ -17,12 +19,26 @@ export default function Gallery() {
       const fetchedLogos = await allLogos();
       if (fetchedLogos) {
         setLogos(fetchedLogos);
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to load logos",
+          variant: "destructive",
+        });
       }
     };
     fetchLogos();
   }, []);
 
   const displayedLogos = showAll ? logos : logos.slice(0, 12);
+
+  const handleDownload = (imageUrl: string) => {
+    window.open(imageUrl, '_blank');
+    toast({
+      title: "Opening image",
+      description: "The logo will open in a new tab",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -58,7 +74,7 @@ export default function Gallery() {
                     />
                   </div>
                   <Button
-                    onClick={() => window.open(logo.image_url, '_blank')}
+                    onClick={() => handleDownload(logo.image_url)}
                     variant="outline"
                     className="w-full mt-2"
                   >

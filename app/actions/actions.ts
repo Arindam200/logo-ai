@@ -7,6 +7,8 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { InsertLogo,logosTable,SelectLogo } from '@/db/schema';
 import { db } from '@/db';
 import { eq, desc } from 'drizzle-orm';
+import { rateLimit } from '@/lib/upstash';
+import { toast } from '@/hooks/use-toast';
 
 export async function downloadImage(url: string) {
   'use server';
@@ -73,6 +75,30 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
     const user = await currentUser();
     if (!user) {
       return { success: false, error: 'User not authenticated' };
+    }
+
+    const { success: rateLimitSuccess, remaining } = await rateLimit.limit(user.id);
+    
+    await (await clerkClient()).users.updateUserMetadata(user.id, {
+      unsafeMetadata: {
+        remaining,
+      },
+    });
+
+    console.log("your remaining logo generation limit is", remaining)
+    if (remaining === 1) {
+      await toast({
+        title: "Warning",
+        description: "You only have 1 logo generation remaining",
+        variant: "destructive",
+      });
+    }
+
+    if (!rateLimitSuccess) {
+      return { 
+        success: false, 
+        error: "You've reached your logo generation limit. Please try again later." 
+      };
     }
 
     const validatedData = FormSchema.parse(formData);

@@ -7,8 +7,10 @@ import Navigation from '@/components/ui/Navigation';
 import { checkHistory } from '../actions/actions';
 import { useEffect, useState } from 'react';
 import { SelectLogo } from '@/db/schema';
+import { useToast } from "@/hooks/use-toast";
 
 export default function History() {
+  const { toast } = useToast();
   const [logos, setLogos] = useState<SelectLogo[]>([]);
 
   useEffect(() => {
@@ -16,11 +18,25 @@ export default function History() {
       const history = await checkHistory();
       if (history) {
         setLogos(history);
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to load history",
+          variant: "destructive",
+        });
       }
     }; 
     checkUserHistory();
   }, []);
   
+  const handleDownload = (imageUrl: string) => {
+    window.open(imageUrl, '_blank');
+    toast({
+      title: "Opening image",
+      description: "The logo will open in a new tab",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <Navigation />
@@ -54,7 +70,7 @@ export default function History() {
                     />
                   </div>
                   <Button
-                    onClick={() => window.open(logo.image_url, '_blank')}
+                    onClick={() => handleDownload(logo.image_url)}
                     variant="outline"
                     className="w-full mt-2"
                   >
