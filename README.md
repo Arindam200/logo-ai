@@ -6,6 +6,7 @@ LogoAI is a modern web application that leverages artificial intelligence to gen
 
 - **AI-Powered Logo Generation**: Create unique logos using advanced AI models
 - **Multiple AI Models**: Choose between different AI models including FLUX and Stability AI SDXL
+- **Rate Limiting**: Limited to 10 logo generations per month per user
 - **Customization Options**:
   - Multiple style presets (Minimal, Tech, Corporate, Creative, Abstract, Flashy)
   - Custom color selection
@@ -22,6 +23,7 @@ LogoAI is a modern web application that leverages artificial intelligence to gen
 - **Styling**: Tailwind CSS, Shadcn UI
 - **Authentication**: Clerk
 - **Database**: PostgreSQL (NeonDB)
+- **Rate Limiting**: Upstash Redis
 - **ORM**: Drizzle ORM
 - **AI Integration**: Nebius AI
 - **Animations**: Framer Motion
@@ -38,6 +40,7 @@ Before you begin, you'll need to create accounts and obtain API keys from the fo
 - [Nebius AI Account](https://dub.sh/nebius) - For AI model access
 - [Clerk Account](https://clerk.com/) - For authentication
 - [Vercel Account](https://vercel.com/) - For deployment
+- [Upstash Account](https://upstash.com/) - For Ratelimiting
 
 ### Environment Variables
 
@@ -53,6 +56,10 @@ NEBIUS_API_KEY=your_nebius_api_key
 # Auth (from Clerk Dashboard)
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
+
+# Rate Limiting (from Upstash)
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 
 # Development
 NEXT_PUBLIC_DEVELOPMENT_URL=http://localhost:3000

@@ -8,8 +8,8 @@ const redis = new Redis({
 
 export const rateLimit = new Ratelimit({
     redis: Redis.fromEnv(),
-    // Allow 3 requests per 2 months on prod
-    limiter: Ratelimit.fixedWindow(3, "30 d"),
+    // Allow 10 requests per 1 month on prod
+    limiter: Ratelimit.fixedWindow(10, "30 d"),
     analytics: true,
     prefix: "logocreator",
 })
