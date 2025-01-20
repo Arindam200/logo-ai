@@ -482,8 +482,8 @@ export default function Home() {
           </div>
 
           {/* Right Column */}
-          <div className="sticky top-4">
-            <Card className="max-h-fit rounded-3xl dark:bg-accent/20 min-h-[400px]">
+          <div className="">
+            <Card className="h-full rounded-3xl dark:bg-accent/20 ">
               <CardContent className="p-6 h-full">
                 {generatedLogo ? (
                   <motion.div
@@ -522,7 +522,7 @@ export default function Home() {
                   </motion.div>
                 ) : (
                   <motion.div
-                    className="h-[350px] rounded-2xl flex items-center border-2 dark:border-primary/40 border-dashed justify-center text-center p-8"
+                    className="h-full rounded-2xl flex items-center border-2 dark:border-primary/40 border-dashed justify-center text-center p-8"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4 }}
