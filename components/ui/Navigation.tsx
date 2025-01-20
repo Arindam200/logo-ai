@@ -16,26 +16,35 @@ const Navigation = () => {
         <Link href="/" className="text-xl font-semibold">
           LogoAI
         </Link>
-        
+
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="/generate" className="text-gray-500 hover:text-primary transition-colors">
+          <Link
+            href="/generate"
+            className="text-gray-500 hover:text-primary transition-colors"
+          >
             Generate
           </Link>
-          <Link href="/gallery" className="text-gray-500 hover:text-primary transition-colors">
+          <Link
+            href="/gallery"
+            className="text-gray-500 hover:text-primary transition-colors"
+          >
             Gallery
           </Link>
-          <Link href="/pricing" className="text-gray-500 hover:text-primary transition-colors">
+          <Link
+            href="/pricing"
+            className="text-gray-500 hover:text-primary transition-colors"
+          >
             Pricing
           </Link>
         </div>
 
         <div className="flex items-center space-x-4">
           <SignedOut>
-            <SignInButton signUpForceRedirectUrl={`${domain}/generate`}
-                forceRedirectUrl={`${domain}/generate`}>
-              <Button className="inline-flex text-white">
-                Sign In
-              </Button>
+            <SignInButton
+              signUpForceRedirectUrl={`${domain}/generate`}
+              forceRedirectUrl={`${domain}/generate`}
+            >
+              <Button className="inline-flex text-white">Sign In</Button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
@@ -46,7 +55,6 @@ const Navigation = () => {
               </Button> 
             </Link> */}
           </SignedIn>
-          
         </div>
       </div>
     </nav>
