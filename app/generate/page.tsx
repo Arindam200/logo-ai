@@ -549,12 +549,9 @@ export default function Home() {
             </Card>
           </div>
         </div>
-        <div className="flex justify-between items-center mt-4 px-4">
-          {/* Left side with Made by text */}
-          
+        <div className="flex justify-between items-center mt-4 px-4 max-sm:flex-col">
 
-          {/* Center Nebius text */}
-          <div className="px-4 py-2 text-sm">
+          <div className="px-4 py-2 text-sm max-sm:hidden">
             Powered by{" "}            
             <Link href="https://dub.sh/nebius" className="text-foreground hover:text-primary transition-colors">
               Nebius AI
@@ -573,7 +570,7 @@ export default function Home() {
           </div>
 
           {/* Right social icons */}
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center max-sm:hidden">
             <Link 
               href="https://git.new/Arindam" 
               target="_blank" 
