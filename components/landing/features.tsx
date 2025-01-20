@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export default function Features() {
   return (
     <>
-      <div className="bg-background py-10 mt-20">
+      <div id="features" className="bg-background py-10 mt-20">
         <div className="flex flex-col">
           <Badge className="w-fit px-4 py-2 flex items-center mb-4 gap-2">
             <IconCrown className="text-white size-4" />

@@ -21,9 +21,10 @@ export default function Navbar() {
           LogoAI
         </Link>
         <div className="hidden md:flex items-center font-semibold space-x-8">
-          <Link href="/generate">Generate</Link>
+          <Link href="/#features">Features</Link>
+          <Link href="/#faq">FAQs</Link>
           <Link href="/gallery">Gallery</Link>
-          <Link href="/pricing">Pricing</Link>
+          
         </div>
         <div className="flex items-center flex-1 justify-end space-x-4">
           <ToggleTheme />

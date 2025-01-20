@@ -11,7 +11,7 @@ import { faqItems } from "@/constants/data";
 export default function Faq() {
   return (
     <>
-      <div className="bg-background py-10 mt-20">
+      <div id="faq" className="bg-background py-10 mt-20">
         <div className="flex flex-col">
           <Badge className="w-fit px-4 py-2 flex items-center mb-4 gap-2">
             <IconBrandLine className="text-white size-4" />
