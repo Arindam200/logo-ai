@@ -32,6 +32,11 @@ import {
   IconSparkles,
 } from "@tabler/icons-react";
 import { Badge } from "@/components/ui/badge";
+import {
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandX,
+} from "@tabler/icons-react";
 
 const STYLE_OPTIONS = [
   {
@@ -239,11 +244,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="max-h-screen">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 mt-20 sm:px-6 lg:px-8 py-8 h-[screen-height] overflow-y-hidden rounded-lg">
-        <div className="flex md:flex-row items-start gap-4 md:items-center justify-between flex-col-reverse mb-10">
+      <main className="max-w-6xl mx-auto px-4 mt-12 sm:px-6 lg:px-8 pt-8 h-[screen-height] overflow-y-hidden rounded-lg">
+        <div className="flex md:flex-row items-start gap-4 md:items-center justify-between flex-col-reverse mb-6">
           <div className="text-3xl md:text-3xl font-medium">
             Create your perfect <br /> logo
             <span className="bg-gradient-to-tr mx-2 from-white via-primary to-white bg-clip-text text-transparent">
@@ -272,28 +277,28 @@ export default function Home() {
                 </div>
 
                 {/* Style Selection */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1">
                   <label className="text-sm font-medium ml-2">Style</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-1">
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mt-1">
                     {STYLE_OPTIONS.map((style) => (
                       <motion.button
                         key={style.id}
                         onClick={() => setSelectedStyle(style.id)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`p-6 rounded-lg border flex items-center gap-2 flex-col text-center transition-all ${
+                        className={`p-4 rounded-lg border flex items-center gap-1 flex-col text-center transition-all ${
                           selectedStyle === style.id
                             ? "border-primary bg-primary/20 text-foreground font-semibold ring-1 ring-primary"
                             : "border-accent hover:bg-accent/20"
                         }`}
                       >
                         <motion.div
-                          className="text-xl mb-1"
+                          className="text-lg"
                           transition={{ duration: 0.3 }}
                         >
-                          {<style.icon className="w-6 h-6" />}
+                          {<style.icon className="w-5 h-5" />}
                         </motion.div>
-                        <div className="text-xs font-medium">{style.name}</div>
+                        <div className="text-[10px] font-medium">{style.name}</div>
                       </motion.button>
                     ))}
                   </div>
@@ -544,23 +549,52 @@ export default function Home() {
             </Card>
           </div>
         </div>
-        <div className="flex md:flex-row flex-col font-semibold justify-center items-center mt-10 gap-4">
-          <div className="bg-accent/40 dark:bg-accent/30 px-4 py-2 rounded-2xl  ">
-            Built with love by{" "}
-            <Badge className="bg-transparent hover:bg-transparent border-2 py-1 px-4 border-primary text-foreground ml-2">
-              <Link href="https://dub.sh/arindam" className="text-foreground ">
-                Arindam
-              </Link>
-            </Badge>
+        <div className="flex justify-between items-center mt-4 px-4">
+          {/* Left side with Made by text */}
+          
+
+          {/* Center Nebius text */}
+          <div className="px-4 py-2 text-sm">
+            Powered by{" "}            
+            <Link href="https://dub.sh/nebius" className="text-foreground hover:text-primary transition-colors">
+              Nebius AI
+            </Link>
           </div>
 
-          <div className="bg-accent/40 dark:bg-accent/30 px-4 py-2 rounded-2xl">
-            Powered by{" "}
-            <Badge className="bg-transparent hover:bg-transparent border-2 py-1 px-4 border-primary text-foreground ml-2">
-              <Link href="https://dub.sh/nebius" className="text-foreground">
-                Nebius AI
-              </Link>
-            </Badge>
+          <div className="px-4 py-2 text-sm">
+            Made with ❤️ {" "} by{" "}
+            <Link 
+              href="https://github.com/arindamcodes" 
+              target="_blank"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Arindam
+            </Link>
+          </div>
+
+          {/* Right social icons */}
+          <div className="flex gap-4 items-center">
+            <Link 
+              href="https://git.new/Arindam" 
+              target="_blank" 
+              className="hover:text-primary transition-colors"
+            >
+              <IconBrandGithub className="size-5" />
+            </Link>
+            <Link 
+              href="https://dub.sh/arindam-linkedin" 
+              target="_blank"
+              className="hover:text-primary transition-colors"
+            >
+              <IconBrandLinkedin className="size-5" />
+            </Link>
+            <Link 
+              href="https://dub.sh/arindam-x" 
+              target="_blank"
+              className="hover:text-primary transition-colors"
+            >
+              <IconBrandX className="size-5" />
+            </Link>
           </div>
         </div>
       </main>

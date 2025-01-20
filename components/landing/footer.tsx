@@ -76,9 +76,27 @@ export default function Footer() {
                 &copy; {new Date().getFullYear()} LogoAI
               </div>
               <div className="flex gap-4 items-center justify-center">
-                <IconBrandGithub className="size-5 md:size-8" />
-                <IconBrandLinkedin className="size-5 md:size-8" />
-                <IconBrandX className="size-5 md:size-8" />
+                <Link 
+                  href="https://git.new/Arindam" 
+                  target="_blank" 
+                  className="hover:text-primary transition-colors"
+                >
+                  <IconBrandGithub className="size-5 md:size-8" />
+                </Link>
+                <Link 
+                  href="https://dub.sh/arindam-linkedin" 
+                  target="_blank"
+                  className="hover:text-primary transition-colors"
+                >
+                  <IconBrandLinkedin className="size-5 md:size-8" />
+                </Link>
+                <Link 
+                  href="https://dub.sh/arindam-x" 
+                  target="_blank"
+                  className="hover:text-primary transition-colors"
+                >
+                  <IconBrandX className="size-5 md:size-8" />
+                </Link>
               </div>
             </div>
           </div>
