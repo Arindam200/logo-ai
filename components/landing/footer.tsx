@@ -18,6 +18,7 @@ import { SignedIn } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import { SignedOut } from "@clerk/nextjs";
 import { domain } from "@/lib/domain";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -55,7 +56,11 @@ export default function Footer() {
                 </SignInButton>
               </SignedOut>
               <SignedIn>
-                <UserButton />
+                <Link href="/generate" className="w-full md:w-auto">
+                  <Button className="text-sm">
+                    Start Generating <IconSparkles className="size-4" />
+                  </Button>
+                </Link>
                 {/* <Link href="/generate">
               <Button className="text-white">
                 Get Started
