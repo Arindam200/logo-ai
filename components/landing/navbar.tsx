@@ -16,7 +16,7 @@ export default function Navbar() {
   }, []);
   return (
     <header className="fixed max-w-6xl mx-auto px-4 top-0 left-0 right-0 z-50">
-      <nav className=" backdrop-blur-md text-sm rounded-xl mt-4 flex justify-between items-center py-2 px-5">
+      <nav className="border border-accent/50 backdrop-blur-md text-sm rounded-xl mt-4 flex justify-between items-center py-2 px-5">
         <Link href="/" className="font-semibold flex-1">
           LogoAI
         </Link>

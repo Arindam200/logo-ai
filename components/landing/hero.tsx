@@ -1,11 +1,17 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
 import { IconPointerFilled, IconSparkles } from "@tabler/icons-react";
 import { LogoCarousel } from "../ui/logo-carousel";
 import Gradient from "../gradient";
 import FloatingIcons from "../floating-icons";
+import { SignedOut, SignInButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { domain } from "@/lib/domain";
 
 export default function Hero() {
+  const { isSignedIn } = useUser();
+  const router = useRouter();
   return (
     <>
       <div className="relative overflow-hidden">
@@ -33,9 +39,25 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex sm:flex-row flex-col w-full md:w-auto items-center gap-4">
-            <Button className="h-8 w-full md:w-auto px-6 py-5">
-              Try for free! <IconPointerFilled className="w-4 h-4" />
-            </Button>
+            {isSignedIn ? (
+              <Button
+                onClick={() => {
+                  router.push("/generate");
+                }}
+                className="h-8 w-full md:w-auto px-6 py-5"
+              >
+                Go to Dashboard <IconPointerFilled className="w-4 h-4" />
+              </Button>
+            ) : (
+              <SignedOut>
+                <SignInButton
+                  signUpForceRedirectUrl={`${domain}/generate`}
+                  forceRedirectUrl={`${domain}/generate`}
+                >
+                  <Button className="text-sm">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+            )}
             <Button
               variant="outline"
               className="h-8 w-full md:w-auto px-6 py-5"
