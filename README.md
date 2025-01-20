@@ -1,5 +1,7 @@
 # LogoAI - AI-Powered Logo Generator
 
+![LogoAI](./app/opengraph-image.png)
+
 LogoAI is a modern web application that leverages artificial intelligence to generate unique, professional logos. Built with Next.js, TypeScript, and powered by Nebius AI, it offers a seamless experience for creating custom logos for businesses and personal brands.
 
 ## Features
@@ -114,8 +116,10 @@ yarn dev
 │   ├── index.ts        # Database configuration
 │   └── schema.ts       # Database schema
 ├── lib/
-│   └── domain.ts       # Domain configuration
-└──  public/             # Static assets
+│   ├── domain.ts       # Domain configuration
+│   └── upstash.ts      # Rate limiting configuration
+├── public/            # Static assets
+└── middleware.ts      # Rate limiting middleware
 ```
 
 ## Contributing
@@ -128,7 +132,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- This Project is Powered by [Nebius AI](https://dub.sh/nebius)
+Special thanks to:
+
+- [Nebius AI](https://dub.sh/nebius) for powering our logo generation with their cutting-edge AI models and generous free credits
+- [Aman Bairagi](https://github.com/amanbairagi30) for his contributions to the UI design.
 
 ## Support
 
