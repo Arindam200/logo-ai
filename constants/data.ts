@@ -64,75 +64,99 @@ export const features = [
   },
 ];
 
-export const displayedLogos = [
+// this array was just for testing the gallery section and can be removed without no issues
+// export const displayedLogos = [
+//   {
+//     id: 1,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-6f33655f-a035-451d-870b-fe7d507846dc_00001_.webp",
+//     primary_color: "#FF5733",
+//     background_color: "#FFF9F8",
+//     username: "artCreator1",
+//     userId: "usr_123abc",
+//     createdAt: new Date("2024-01-15T10:30:00Z"),
+//   },
+//   {
+//     id: 2,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-bce43316-1990-41c8-934e-9b0820a17018_00001_.webp",
+//     primary_color: "#33FF57",
+//     background_color: "#F8FFF9",
+//     username: "digitalArtist",
+//     userId: "usr_456def",
+//     createdAt: new Date("2024-01-16T14:20:00Z"),
+//   },
+//   {
+//     id: 3,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-168b49a8-8289-40e6-8bb6-ec4633b6efe1_00001_.webp",
+//     primary_color: "#3357FF",
+//     background_color: "#F8F9FF",
+//     username: "logoMaster",
+//     userId: "usr_789ghi",
+//     createdAt: new Date("2024-01-17T09:15:00Z"),
+//   },
+//   {
+//     id: 4,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-275ea438-7f74-4f79-8b36-2cefb6ec0e06_00001_.webp",
+//     primary_color: "#9933FF",
+//     background_color: "#FAF8FF",
+//     username: "designPro",
+//     userId: "usr_012jkl",
+//     createdAt: new Date("2024-01-18T16:45:00Z"),
+//   },
+//   {
+//     id: 5,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-5647e2b7-419f-4451-a90b-08598f136811_00001_.webp",
+//     primary_color: "#FF3399",
+//     background_color: "#FFF8FC",
+//     username: "creativeMind",
+//     userId: "usr_345mno",
+//     createdAt: new Date("2024-01-19T11:25:00Z"),
+//   },
+//   {
+//     id: 6,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-2d9fd007-44b8-4efe-9eee-debf4a4aa13a_00001_.webp",
+//     primary_color: "#33FFFF",
+//     background_color: "#F8FFFF",
+//     username: "artGenius",
+//     userId: "usr_678pqr",
+//     createdAt: new Date("2024-01-19T13:50:00Z"),
+//   },
+//   {
+//     id: 7,
+//     image_url:
+//       "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-3dbe853f-f374-4087-9ed6-eb98a0f48de1_00001_.webp",
+//     primary_color: "#FFFF33",
+//     background_color: "#FFFFF8",
+//     username: "logoWizard",
+//     userId: "usr_901stu",
+//     createdAt: new Date("2024-01-20T08:10:00Z"),
+//   },
+// ];
+
+export const faqItems = [
   {
-    id: 1,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-6f33655f-a035-451d-870b-fe7d507846dc_00001_.webp",
-    primary_color: "#FF5733",
-    background_color: "#FFF9F8",
-    username: "artCreator1",
-    userId: "usr_123abc",
-    createdAt: new Date("2024-01-15T10:30:00Z"),
+    question: "How does the AI logo generator work?",
+    answer:
+      "Our AI analyzes your brand's needs and uses advanced algorithms to generate unique logo designs tailored to your preferences.",
   },
   {
-    id: 2,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-bce43316-1990-41c8-934e-9b0820a17018_00001_.webp",
-    primary_color: "#33FF57",
-    background_color: "#F8FFF9",
-    username: "digitalArtist",
-    userId: "usr_456def",
-    createdAt: new Date("2024-01-16T14:20:00Z"),
+    question: "Can I customize the generated logos?",
+    answer:
+      "Absolutely! You can edit fonts, colors, layouts, and more to make your logo truly yours.",
   },
   {
-    id: 3,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-168b49a8-8289-40e6-8bb6-ec4633b6efe1_00001_.webp",
-    primary_color: "#3357FF",
-    background_color: "#F8F9FF",
-    username: "logoMaster",
-    userId: "usr_789ghi",
-    createdAt: new Date("2024-01-17T09:15:00Z"),
+    question: "Do I own the rights to my logo?",
+    answer:
+      "Yes, you get full commercial rights to use your logo however you like after downloading it.",
   },
   {
-    id: 4,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-275ea438-7f74-4f79-8b36-2cefb6ec0e06_00001_.webp",
-    primary_color: "#9933FF",
-    background_color: "#FAF8FF",
-    username: "designPro",
-    userId: "usr_012jkl",
-    createdAt: new Date("2024-01-18T16:45:00Z"),
-  },
-  {
-    id: 5,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-5647e2b7-419f-4451-a90b-08598f136811_00001_.webp",
-    primary_color: "#FF3399",
-    background_color: "#FFF8FC",
-    username: "creativeMind",
-    userId: "usr_345mno",
-    createdAt: new Date("2024-01-19T11:25:00Z"),
-  },
-  {
-    id: 6,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-2d9fd007-44b8-4efe-9eee-debf4a4aa13a_00001_.webp",
-    primary_color: "#33FFFF",
-    background_color: "#F8FFFF",
-    username: "artGenius",
-    userId: "usr_678pqr",
-    createdAt: new Date("2024-01-19T13:50:00Z"),
-  },
-  {
-    id: 7,
-    image_url:
-      "https://pictures-storage.storage.eu-north1.nebius.cloud/text2img-3dbe853f-f374-4087-9ed6-eb98a0f48de1_00001_.webp",
-    primary_color: "#FFFF33",
-    background_color: "#FFFFF8",
-    username: "logoWizard",
-    userId: "usr_901stu",
-    createdAt: new Date("2024-01-20T08:10:00Z"),
+    question: "How much does it cost?",
+    answer:
+      "You can explore designs for free. Pricing applies only when you decide to download a high-resolution file.",
   },
 ];

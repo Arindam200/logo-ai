@@ -3,12 +3,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowRight } from "lucide-react";
-import Navigation from "@/components/ui/Navigation";
 import { useState, useEffect } from "react";
 import { allLogos } from "../actions/actions";
 import { SelectLogo } from "@/db/schema";
 import { useToast } from "@/hooks/use-toast";
-import { displayedLogos } from "@/constants/data";
 import Navbar from "@/components/landing/navbar";
 
 export default function Gallery() {
@@ -32,7 +30,7 @@ export default function Gallery() {
     fetchLogos();
   }, []);
 
-  // const displayedLogos = showAll ? logos : logos.slice(0, 12);
+  const displayedLogos = showAll ? logos : logos.slice(0, 12);
 
   const handleDownload = (imageUrl: string) => {
     window.open(imageUrl, "_blank");
@@ -46,7 +44,12 @@ export default function Gallery() {
     <div className="min-h-screen ">
       <Navbar />
       <div className="max-w-6xl mx-auto mt-20 px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold mb-8">Recent Generations</h1>
+        <h1 className="text-3xl font-semibold mb-8">
+          Recent
+          <span className="bg-gradient-to-tr mx-2 from-white via-primary to-white bg-clip-text text-transparent">
+            Generations
+          </span>{" "}
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayedLogos.map((logo) => (
             <Card className="group rounded-2xl" key={logo.id}>

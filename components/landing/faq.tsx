@@ -5,32 +5,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "../ui/badge";
-import { IconBrandLine, IconCrown } from "@tabler/icons-react";
+import { IconBrandLine } from "@tabler/icons-react";
+import { faqItems } from "@/constants/data";
 
 export default function Faq() {
-  const faqItems = [
-    {
-      question: "How does the AI logo generator work?",
-      answer:
-        "Our AI analyzes your brand's needs and uses advanced algorithms to generate unique logo designs tailored to your preferences.",
-    },
-    {
-      question: "Can I customize the generated logos?",
-      answer:
-        "Absolutely! You can edit fonts, colors, layouts, and more to make your logo truly yours.",
-    },
-    {
-      question: "Do I own the rights to my logo?",
-      answer:
-        "Yes, you get full commercial rights to use your logo however you like after downloading it.",
-    },
-    {
-      question: "How much does it cost?",
-      answer:
-        "You can explore designs for free. Pricing applies only when you decide to download a high-resolution file.",
-    },
-  ];
-
   return (
     <>
       <div className="bg-background py-10 mt-20">

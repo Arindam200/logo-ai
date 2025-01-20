@@ -1,13 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-import {
-  IconChecklist,
-  IconClick,
-  IconNorthStar,
-  IconPackage,
-  IconPointerFilled,
-  IconSparkles,
-} from "@tabler/icons-react";
+import { IconPointerFilled, IconSparkles } from "@tabler/icons-react";
 import { LogoCarousel } from "../ui/logo-carousel";
 import Gradient from "../gradient";
 import FloatingIcons from "../floating-icons";
