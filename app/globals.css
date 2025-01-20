@@ -2,32 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 60 33% 99%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.75rem;
+    --background: 259 13% 100%;
+    --foreground: 259 5% 10%;
+    --card: 259 13% 100%;
+    --card-foreground: 259 5% 15%;
+    --popover: 259 13% 100%;
+    --popover-foreground: 259 95% 10%;
+    --primary: 259 61.7% 53.9%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 259 13% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 221 13% 95%;
+    --muted-foreground: 259 5% 40%;
+    --accent: 221 13% 90%;
+    --accent-foreground: 259 5% 15%;
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 259 5% 100%;
+    --border: 259 20% 82%;
+    --input: 259 20% 50%;
+    --ring: 259 61.7% 53.9%;
+    --radius: 1rem;
+  }
+  .dark {
+    --background: 259 20% 7%;
+    --foreground: 259 5% 90%;
+    --card: 259 20% 7%;
+    --card-foreground: 259 5% 90%;
+    --popover: 259 20% 5%;
+    --popover-foreground: 259 5% 90%;
+    --primary: 259 61.7% 53.9%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 259 20% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 221 20% 15%;
+    --muted-foreground: 259 5% 60%;
+    --accent: 221 20% 15%;
+    --accent-foreground: 259 5% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 259 5% 90%;
+    --border: 259 20% 18%;
+    --input: 259 20% 18%;
+    --ring: 259 61.7% 53.9%;
+    --radius: 1.1rem;
   }
 
   * {
@@ -37,10 +55,6 @@ body {
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
-  }
-
-  .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20;
   }
 }
 
