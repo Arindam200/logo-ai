@@ -1,17 +1,15 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { IconPointerFilled, IconSparkles } from "@tabler/icons-react";
 import { LogoCarousel } from "../ui/logo-carousel";
 import Gradient from "../gradient";
 import FloatingIcons from "../floating-icons";
-import { SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { domain } from "@/lib/domain";
 
 export default function Hero() {
-  const { isSignedIn } = useUser();
-  const router = useRouter();
   return (
     <>
       <div className="relative overflow-hidden">
@@ -39,32 +37,33 @@ export default function Hero() {
           </div>
 
           <div className="mt-10 flex sm:flex-row flex-col w-full md:w-auto items-center gap-4">
-            {isSignedIn ? (
-              <Button
-                onClick={() => {
-                  router.push("/generate");
-                }}
-                className="h-8 w-full md:w-auto px-6 py-5"
+            <SignedIn>
+              <Link href="/generate" className="w-full md:w-auto">
+                <Button className="h-8 w-full px-6 py-5 transition-all hover:opacity-90 hover:scale-105">
+                  Try for free! <IconPointerFilled className="w-4 h-4" />
+                </Button>
+              </Link>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton
+                signUpForceRedirectUrl={`${domain}/generate`}
+                forceRedirectUrl={`${domain}/generate`}
+                mode="modal"
               >
-                Go to Dashboard <IconPointerFilled className="w-4 h-4" />
+                <Button className="h-8 w-full px-6 py-5 transition-all hover:opacity-90 hover:scale-105">
+                  Try for free! <IconPointerFilled className="w-4 h-4" />
+                </Button>
+              </SignInButton>
+            </SignedOut>
+            <Link href="/gallery" className="w-full md:w-auto">
+              <Button
+                variant="outline"
+                className="h-8 w-full px-6 py-5 transition-all hover:shadow-[0_0_20px_2px_hsl(var(--primary))]"
+              >
+                See Examples{" "}
+                <IconSparkles className="fill-[hsl(var(--primary))] text-primary dark:fill-[hsl(var(--foreground))] dark:text-foreground" />
               </Button>
-            ) : (
-              <SignedOut>
-                <SignInButton
-                  signUpForceRedirectUrl={`${domain}/generate`}
-                  forceRedirectUrl={`${domain}/generate`}
-                >
-                  <Button className="text-sm">Sign In</Button>
-                </SignInButton>
-              </SignedOut>
-            )}
-            <Button
-              variant="outline"
-              className="h-8 w-full md:w-auto px-6 py-5"
-            >
-              See Examples{" "}
-              <IconSparkles className="fill-[hsl(var(--primary))] text-primary dark:fill-[hsl(var(--foreground))] dark:text-foreground" />
-            </Button>
+            </Link>
           </div>
           <LogoCarousel />
         </section>

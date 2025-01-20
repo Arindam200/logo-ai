@@ -9,23 +9,35 @@ import { SelectLogo } from "@/db/schema";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/landing/navbar";
 import LogoCard from "@/components/logo-card";
+import SkeletonCard from "@/components/skeleton-card";
 
 export default function Gallery() {
   const { toast } = useToast();
   const [logos, setLogos] = useState<SelectLogo[]>([]);
   const [showAll, setShowAll] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogos = async () => {
-      const fetchedLogos = await allLogos();
-      if (fetchedLogos) {
-        setLogos(fetchedLogos);
-      } else {
+      try {
+        const fetchedLogos = await allLogos();
+        if (fetchedLogos) {
+          setLogos(fetchedLogos);
+        } else {
+          toast({
+            title: "Error",
+            description: "Failed to load logos",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
         toast({
           title: "Error",
           description: "Failed to load logos",
           variant: "destructive",
         });
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchLogos();
@@ -42,7 +54,7 @@ export default function Gallery() {
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-6xl mx-auto mt-20 px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-3xl font-semibold mb-8">
@@ -52,10 +64,21 @@ export default function Gallery() {
           </span>{" "}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <LogoCard logos={displayedLogos} handleDownload={handleDownload} />
+          {isLoading ? (
+            // Show 12 skeleton cards while loading
+            [...Array(12)].map((_, index) => <SkeletonCard key={index} />)
+          ) : logos.length > 0 ? (
+            displayedLogos.map((logo) => (
+              <LogoCard key={logo.id} logo={logo} onDownload={handleDownload} />
+            ))
+          ) : (
+            <div className="col-span-full text-center text-muted-foreground py-12">
+              No logos generated yet
+            </div>
+          )}
         </div>
 
-        {logos.length > 12 && (
+        {!isLoading && logos.length > 12 && (
           <div className="flex justify-center mt-8">
             <Button
               onClick={() => setShowAll(!showAll)}
