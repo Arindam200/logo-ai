@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -5,7 +6,7 @@ import { IconPointerFilled, IconSparkles } from "@tabler/icons-react";
 import { LogoCarousel } from "../ui/logo-carousel";
 import Gradient from "../gradient";
 import FloatingIcons from "../floating-icons";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { domain } from "@/lib/domain";
 
 export default function Hero() {
