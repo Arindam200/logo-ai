@@ -31,7 +31,6 @@ import {
   IconMinimize,
   IconSparkles,
 } from "@tabler/icons-react";
-import { Badge } from "@/components/ui/badge";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -224,6 +223,7 @@ export default function Home() {
         toast({
           title: "Success!",
           description: "Your logo has been generated successfully",
+          variant: "success"
         });
       } else {
         throw new Error(result.error || "Failed to generate logo");
