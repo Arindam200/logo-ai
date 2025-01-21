@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -131,6 +131,45 @@ const BACKGROUND_OPTIONS = [
   { id: "#F0FFF4", name: "Light Green" },
 ];
 
+const Footer = () => (
+  <div className="flex justify-between items-center mt-4 px-4 max-sm:flex-col">
+    <div className="px-4 py-2 text-sm max-sm:hidden">
+      Powered by{" "}            
+      <Link href="https://dub.sh/nebius" className="text-foreground hover:text-primary transition-colors">
+        Nebius AI
+      </Link>
+    </div>
+
+    <div className="px-4 py-2 text-sm">
+      Made with ❤️ by{" "}
+      <Link 
+        href="https://github.com/arindamcodes" 
+        target="_blank"
+        className="text-foreground hover:text-primary transition-colors"
+      >
+        Arindam
+      </Link>
+    </div>
+
+    <div className="flex gap-4 items-center max-sm:hidden">
+      {[
+        { href: "https://git.new/Arindam", Icon: IconBrandGithub },
+        { href: "https://dub.sh/arindam-linkedin", Icon: IconBrandLinkedin },
+        { href: "https://dub.sh/arindam-x", Icon: IconBrandX }
+      ].map(({ href, Icon }) => (
+        <Link 
+          key={href}
+          href={href} 
+          target="_blank"
+          className="hover:text-primary transition-colors"
+        >
+          <Icon className="size-5" />
+        </Link>
+      ))}
+    </div>
+  </div>
+);
+
 export default function Home() {
   const [companyName, setCompanyName] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("minimal");
@@ -146,7 +185,7 @@ export default function Home() {
     | "dall-e-3"
     | "black-forest-labs/flux-schnell"
     | "black-forest-labs/flux-dev"
-  >("stability-ai/sdxl");
+  >("black-forest-labs/flux-schnell");
   const [selectedSize, setSelectedSize] = useState<
     "256x256" | "512x512" | "1024x1024"
   >("512x512");
@@ -157,24 +196,15 @@ export default function Home() {
   const { isSignedIn, isLoaded, user } = useUser();
   const { toast } = useToast();
 
-  if (!isLoaded) {
-    return (
-      <div className="">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <RefreshCw className="h-8 w-8 animate-spin text-blue-600" />
-            <p className="text-slate-600">Loading...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const [isDownloading, setIsDownloading] = useState(false);
+  
+  const isFormValid = useMemo(() => {
+    return companyName.trim().length > 0;
+  }, [companyName]);
 
-  if (!isSignedIn) {
-    return redirect("/");
-  }
-
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
+    if (!isFormValid) return;
+    
     setLoading(true);
     try {
       const result = await generateLogo({
@@ -192,34 +222,33 @@ export default function Home() {
       if (result.success && result.url) {
         setGeneratedLogo(result.url);
         toast({
-          title: "Logo generated successfully",
-          description: "Your new logo is ready to download",
+          title: "Success!",
+          description: "Your logo has been generated successfully",
         });
       } else {
-        toast({
-          title: "Generation failed",
-          description: result.error || "Failed to generate logo",
-          variant: "destructive",
-        });
+        throw new Error(result.error || "Failed to generate logo");
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "An unexpected error occurred",
+        description: error instanceof Error ? error.message : "An unexpected error occurred",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
-  };
+  }, [companyName, selectedStyle, primaryColor, backgroundColor, selectedModel, selectedSize, selectedQuality, additionalInfo, isFormValid, toast]);
 
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
+    if (!generatedLogo) return;
+    
+    setIsDownloading(true);
     try {
       const result = await downloadImage(generatedLogo);
       if (result.success && result.data) {
         const a = document.createElement("a");
         a.href = result.data;
-        a.download = `${companyName}-logo.png`;
+        a.download = `${companyName.trim()}-logo.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -228,20 +257,33 @@ export default function Home() {
           description: "Your logo is being downloaded",
         });
       } else {
-        toast({
-          title: "Download failed",
-          description: "Failed to download logo",
-          variant: "destructive",
-        });
+        throw new Error("Failed to download logo");
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "An unexpected error occurred while downloading",
+        description: error instanceof Error ? error.message : "An unexpected error occurred while downloading",
         variant: "destructive",
       });
+    } finally {
+      setIsDownloading(false);
     }
-  };
+  }, [generatedLogo, companyName, toast]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw className="h-8 w-8 animate-spin text-blue-600" />
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
+    return redirect("/");
+  }
 
   return (
     <div className="max-h-screen">
@@ -467,18 +509,18 @@ export default function Home() {
                 {/* Generate Button */}
                 <Button
                   onClick={handleGenerate}
-                  disabled={!companyName || loading}
-                  className="w-full h-12 text-lg bg-primary hover:bg-primary/80"
+                  disabled={!isFormValid || loading}
+                  className="w-full h-12 text-lg bg-primary hover:bg-primary/80 disabled:opacity-50"
                 >
                   {loading ? (
                     <>
                       Generating...
-                      <RefreshCw className="mr-2 h-5 w-5 animate-spin" />
+                      <RefreshCw className="ml-2 h-5 w-5 animate-spin" />
                     </>
                   ) : (
                     <>
                       Generate Logo
-                      <IconSparkles className="mr-2 h-5 w-5" />
+                      <IconSparkles className="ml-2 h-5 w-5" />
                     </>
                   )}
                 </Button>
@@ -549,51 +591,7 @@ export default function Home() {
             </Card>
           </div>
         </div>
-        <div className="flex justify-between items-center mt-4 px-4 max-sm:flex-col">
-
-          <div className="px-4 py-2 text-sm max-sm:hidden">
-            Powered by{" "}            
-            <Link href="https://dub.sh/nebius" className="text-foreground hover:text-primary transition-colors">
-              Nebius AI
-            </Link>
-          </div>
-
-          <div className="px-4 py-2 text-sm">
-            Made with ❤️ {" "} by{" "}
-            <Link 
-              href="https://github.com/arindamcodes" 
-              target="_blank"
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Arindam
-            </Link>
-          </div>
-
-          {/* Right social icons */}
-          <div className="flex gap-4 items-center max-sm:hidden">
-            <Link 
-              href="https://git.new/Arindam" 
-              target="_blank" 
-              className="hover:text-primary transition-colors"
-            >
-              <IconBrandGithub className="size-5" />
-            </Link>
-            <Link 
-              href="https://dub.sh/arindam-linkedin" 
-              target="_blank"
-              className="hover:text-primary transition-colors"
-            >
-              <IconBrandLinkedin className="size-5" />
-            </Link>
-            <Link 
-              href="https://dub.sh/arindam-x" 
-              target="_blank"
-              className="hover:text-primary transition-colors"
-            >
-              <IconBrandX className="size-5" />
-            </Link>
-          </div>
-        </div>
+        <Footer />
       </main>
     </div>
   );
