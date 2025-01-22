@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import Script from "next/script";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -72,6 +73,11 @@ export default function RootLayout({
           </ThemeProvider>
           <Toaster />
         </body>
+        <Script
+        async
+        src="https://cloud.umami.is/script.js"
+        data-website-id="314e7cd3-1a01-43c1-947f-c855c077906f"
+      />
       </html>
     </ClerkProvider>
   );
