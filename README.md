@@ -29,6 +29,7 @@ LogoAI is a modern web application that leverages artificial intelligence to gen
 - **ORM**: Drizzle ORM
 - **AI Integration**: Nebius AI
 - **Animations**: Framer Motion
+- **Analytics**: Umami
 - **Deployment**: Vercel
 
 ## Getting Started
@@ -43,6 +44,7 @@ Before you begin, you'll need to create accounts and obtain API keys from the fo
 - [Clerk Account](https://clerk.com/) - For authentication
 - [Vercel Account](https://vercel.com/) - For deployment
 - [Upstash Account](https://upstash.com/) - For Ratelimiting
+- [Umami Account](https://umami.is/) - For Analytics
 
 ### Environment Variables
 

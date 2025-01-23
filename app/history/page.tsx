@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowLeft } from "lucide-react";
 import Navigation from "@/components/ui/Navigation";
-import { checkHistory } from "../actions/actions";
+import { checkHistory, downloadImage } from "../actions/actions";
 import { useEffect, useState } from "react";
 import { SelectLogo } from "@/db/schema";
 import { useToast } from "@/hooks/use-toast";
@@ -16,6 +16,7 @@ export default function History() {
   const { toast } = useToast();
   const [logos, setLogos] = useState<SelectLogo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const checkUserHistory = async () => {
@@ -34,12 +35,33 @@ export default function History() {
     checkUserHistory();
   }, []);
 
-  const handleDownload = (imageUrl: string) => {
-    window.open(imageUrl, "_blank");
-    toast({
-      title: "Opening image",
-      description: "The logo will open in a new tab",
-    });
+  const handleDownload = async (imageUrl: string) => {
+    setIsDownloading(true);
+    try {
+      const result = await downloadImage(imageUrl);
+      if (result.success && result.data) {
+        const a = document.createElement("a");
+        a.href = result.data;
+        a.download = `logo.webp`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast({
+          title: "Download started",
+          description: "Your logo is being downloaded",
+        });
+      } else {
+        throw new Error("Failed to download logo");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "An unexpected error occurred while downloading",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (

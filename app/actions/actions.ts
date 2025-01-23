@@ -10,33 +10,7 @@ import { eq, desc } from 'drizzle-orm';
 import { rateLimit } from '@/lib/upstash';
 import { toast } from '@/hooks/use-toast';
 
-export async function downloadImage(url: string) {
-  'use server';
 
-  try {
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch image');
-    }
-
-    const contentType = response.headers.get('content-type');
-    const buffer = await response.arrayBuffer();
-    const base64Image = Buffer.from(buffer).toString('base64');
-
-    return {
-      success: true,
-      data: `data:${contentType};base64,${base64Image}`
-    };
-
-  } catch (error) {
-    console.error('Error downloading image:', error);
-    return {
-      success: false,
-      error: 'Failed to download image'
-    };
-  }
-}
 
 const apiKey = process.env.NEBIUS_API_KEY;
 if (!apiKey) {
@@ -171,6 +145,34 @@ export async function allLogos(){
   }catch(error){
     console.error('Error fetchiing logos'+error)
     return null;
+  }
+}
+
+export async function downloadImage(url: string) {
+  'use server';
+
+  try {
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch image');
+    }
+
+    const contentType = response.headers.get('content-type');
+    const buffer = await response.arrayBuffer();
+    const base64Image = Buffer.from(buffer).toString('base64');
+
+    return {
+      success: true,
+      data: `data:${contentType};base64,${base64Image}`
+    };
+
+  } catch (error) {
+    console.error('Error downloading image:', error);
+    return {
+      success: false,
+      error: 'Failed to download image'
+    };
   }
 }
 

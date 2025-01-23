@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { allLogos } from "../actions/actions";
+import { allLogos, downloadImage } from "../actions/actions";
 import { SelectLogo } from "@/db/schema";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/landing/navbar";
@@ -16,6 +16,7 @@ export default function Gallery() {
   const [logos, setLogos] = useState<SelectLogo[]>([]);
   const [showAll, setShowAll] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const fetchLogos = async () => {
@@ -45,12 +46,33 @@ export default function Gallery() {
 
   const displayedLogos = showAll ? logos : logos.slice(0, 12);
 
-  const handleDownload = (imageUrl: string) => {
-    window.open(imageUrl, "_blank");
-    toast({
-      title: "Opening image",
-      description: "The logo will open in a new tab",
-    });
+  const handleDownload = async (imageUrl: string) => {
+    setIsDownloading(true);
+    try {
+      const result = await downloadImage(imageUrl);
+      if (result.success && result.data) {
+        const a = document.createElement("a");
+        a.href = result.data;
+        a.download = `logo.webp`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast({
+          title: "Download started",
+          description: "Your logo is being downloaded",
+        });
+      } else {
+        throw new Error("Failed to download logo");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "An unexpected error occurred while downloading",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -69,7 +91,7 @@ export default function Gallery() {
             [...Array(12)].map((_, index) => <SkeletonCard key={index} />)
           ) : logos.length > 0 ? (
             displayedLogos.map((logo) => (
-              <LogoCard key={logo.id} logo={logo} onDownload={handleDownload} />
+              <LogoCard key={logo.id} logo={logo} onDownload={() => handleDownload(logo.image_url)} />
             ))
           ) : (
             <div className="col-span-full text-center text-muted-foreground py-12">
