@@ -88,11 +88,11 @@ const MODEL_OPTIONS = [
     name: "Stability AI SDXL",
     description: "Better for artistic and creative logos",
   },
-  {
-    id: "dall-e-3",
-    name: "DALL-E 3",
-    description: "Better for realistic and detailed logos",
-  },
+  // {
+  //   id: "dall-e-3",
+  //   name: "DALL-E 3",
+  //   description: "Better for realistic and detailed logos",
+  // },
   {
     id: "black-forest-labs/flux-schnell",
     name: "Flux Schnell",
