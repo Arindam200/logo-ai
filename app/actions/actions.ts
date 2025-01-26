@@ -128,7 +128,11 @@ export async function checkHistory() {
     const userLogos = await db
       .select()
       .from(logosTable)
-      .where(eq(logosTable.userId, user.id))
+      .where(
+        user.externalId 
+          ? eq(logosTable.userId, user.externalId)
+          : eq(logosTable.userId, user.id)
+      )
       .orderBy(desc(logosTable.createdAt));
 
     return userLogos;
@@ -140,7 +144,10 @@ export async function checkHistory() {
 
 export async function allLogos(){
   try{
-    const allLogos = await db.select().from(logosTable)
+    const allLogos = await db
+      .select()
+      .from(logosTable)
+      .orderBy(desc(logosTable.createdAt));
     return allLogos
   }catch(error){
     console.error('Error fetchiing logos'+error)
