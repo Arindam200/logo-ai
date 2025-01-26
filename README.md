@@ -2,7 +2,7 @@
 
 ![LogoAI](./app/opengraph-image.png)
 
-LogoAI is a modern web application that leverages artificial intelligence to generate unique, professional logos. Built with Next.js, TypeScript, and powered by Nebius AI, it offers a seamless experience for creating custom logos for businesses and personal brands.
+[LogoAI](https://www.logoai.in) is a modern web application that leverages artificial intelligence to generate unique, professional logos. Built with Next.js, TypeScript, and powered by Nebius AI, it offers a seamless experience for creating custom logos for businesses and personal brands.
 
 ## Features
 
