@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://logo-ai-nebius.vercel.app",
+    url: "https://www.logoai.in",
     title: "LogoAI - Create Professional Logos in Minutes",
     description: "Generate unique, professional logos for your brand using AI. Choose from multiple styles, customize colors, and download high-quality logos instantly.",
     siteName: "Logo AI",
