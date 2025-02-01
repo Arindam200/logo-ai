@@ -8,15 +8,26 @@ import { InsertLogo,logosTable,SelectLogo } from '@/db/schema';
 import { db } from '@/db';
 import { eq, desc } from 'drizzle-orm';
 import { rateLimit } from '@/lib/upstash';
+
 const apiKey = process.env.NEBIUS_API_KEY;
 if (!apiKey) {
   throw new Error('NEBIUS_API_KEY is not defined in environment variables');
 }
 
-const client = new OpenAI({
-  baseURL: "https://api.studio.nebius.ai/v1/",
-  apiKey: apiKey,
-});
+
+const { HELICONE_API_KEY } = process.env;
+
+const clientOptions: ConstructorParameters<typeof OpenAI>[0] = {
+  apiKey,
+  baseURL: HELICONE_API_KEY
+    ? "https://nebius.helicone.ai/v1/"
+    : "https://api.studio.nebius.ai/v1/",
+  ...(HELICONE_API_KEY && {
+    defaultHeaders: { "Helicone-Auth": `Bearer ${HELICONE_API_KEY}` },
+  }),
+};
+
+const client = new OpenAI(clientOptions);
 
 const FormSchema = z.object({
   companyName: z.string(),

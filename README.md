@@ -31,6 +31,7 @@
 - **Animations**: Framer Motion
 - **Analytics**: Umami
 - **Deployment**: Vercel
+- **Observibility**: Helicone
 
 ## Getting Started
 
@@ -44,6 +45,7 @@ Before you begin, you'll need to create accounts and obtain API keys from the fo
 - [Clerk Account](https://clerk.com/) - For authentication
 - [Vercel Account](https://vercel.com/) - For deployment
 - [Upstash Account](https://upstash.com/) - For Ratelimiting
+- [Helicone Account](https://www.helicone.ai/) - For Observability
 - [Umami Account](https://umami.is/) - For Analytics
 
 ### Environment Variables
@@ -54,7 +56,7 @@ Create a `.env.local` file in the root directory with the following variables:
 # Database (from NeonDB)
 POSTGRES_URL=your_postgres_connection_string
 
-# AI (from Nebius AI)
+# AI (from Nebius AI Studio)
 NEBIUS_API_KEY=your_nebius_api_key
 
 # Auth (from Clerk Dashboard)
@@ -64,6 +66,9 @@ CLERK_SECRET_KEY=your_clerk_secret_key
 # Rate Limiting (from Upstash)
 UPSTASH_REDIS_REST_URL=your_upstash_redis_url
 UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
+
+# Observability (from Helicone)
+HELICONE_API_KEY=your_helicone_api_key
 
 # Development
 NEXT_PUBLIC_DEVELOPMENT_URL=http://localhost:3000
@@ -108,12 +113,12 @@ yarn dev
 
 ```
 ├── app/
-│   ├── actions/         # Server actions
-│   ├── components/      # UI components
+│   ├── actions/        # Server actions
 │   ├── gallery/        # Public gallery page
 │   ├── generate/       # Logo generation page
 │   ├── history/        # User history page
 │   └── page.tsx        # Landing page
+├── components/         # UI components
 ├── db/
 │   ├── index.ts        # Database configuration
 │   └── schema.ts       # Database schema
