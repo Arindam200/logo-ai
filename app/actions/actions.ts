@@ -8,8 +8,6 @@ import { InsertLogo,logosTable,SelectLogo } from '@/db/schema';
 import { db } from '@/db';
 import { eq, desc } from 'drizzle-orm';
 import { rateLimit } from '@/lib/upstash';
-import { toast } from '@/hooks/use-toast';
-
 const apiKey = process.env.NEBIUS_API_KEY;
 if (!apiKey) {
   throw new Error('NEBIUS_API_KEY is not defined in environment variables');
@@ -27,7 +25,7 @@ const FormSchema = z.object({
   additionalInfo: z.string().optional(),
   primaryColor: z.string(),
   secondaryColor: z.string(),
-  model: z.enum(['stability-ai/sdxl','black-forest-labs/flux-schnell', 'black-forest-labs/flux-dev','stability-ai/sdxl']),
+  model: z.enum(['stability-ai/sdxl', 'dall-e-3','black-forest-labs/flux-schnell', 'black-forest-labs/flux-dev','stability-ai/sdxl']),
   size: z.enum(['256x256','512x512','1024x1024']).default('512x512'),
   quality: z.enum(['standard', 'hd']).default('standard'),
 });
