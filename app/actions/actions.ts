@@ -10,8 +10,6 @@ import { eq, desc } from 'drizzle-orm';
 import { rateLimit } from '@/lib/upstash';
 import { toast } from '@/hooks/use-toast';
 
-
-
 const apiKey = process.env.NEBIUS_API_KEY;
 if (!apiKey) {
   throw new Error('NEBIUS_API_KEY is not defined in environment variables');
@@ -29,7 +27,7 @@ const FormSchema = z.object({
   additionalInfo: z.string().optional(),
   primaryColor: z.string(),
   secondaryColor: z.string(),
-  model: z.enum(['stability-ai/sdxl', 'dall-e-3','black-forest-labs/flux-schnell', 'black-forest-labs/flux-dev','stability-ai/sdxl']),
+  model: z.enum(['stability-ai/sdxl','black-forest-labs/flux-schnell', 'black-forest-labs/flux-dev','stability-ai/sdxl']),
   size: z.enum(['256x256','512x512','1024x1024']).default('512x512'),
   quality: z.enum(['standard', 'hd']).default('standard'),
 });
@@ -60,13 +58,13 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
     });
 
     console.log("your remaining logo generation limit is", remaining)
-    if (remaining === 1) {
-      await toast({
-        title: "Warning",
-        description: "You only have 1 logo generation remaining",
-        variant: "destructive",
-      });
-    }
+    // if (remaining === 1) {
+    //   await toast({
+    //     title: "Warning",
+    //     description: "You only have 1 logo generation remaining",
+    //     variant: "destructive",
+    //   });
+    // }
 
     if (!rateLimitSuccess) {
       return { 
@@ -77,9 +75,7 @@ export async function generateLogo(formData: z.infer<typeof FormSchema>) {
 
     const validatedData = FormSchema.parse(formData);
     
-    const prompt = dedent`A single logo, high-quality, award-winning professional design, made for both digital and print media, only contains a few vector shapes, ${styleLookup[validatedData.style]}
-
-    Primary color is ${validatedData.primaryColor.toLowerCase()} and background color is ${validatedData.secondaryColor.toLowerCase()}. The company name is ${validatedData.companyName}, make sure to include the company name in the logo. ${validatedData ? `Additional info: ${validatedData.additionalInfo}` : ""}`;
+    const prompt = dedent`A single logo, high-quality, award-winning professional design, made for both digital and print media, only contains a few vector shapes, ${styleLookup[validatedData.style]}.Primary color is ${validatedData.primaryColor.toLowerCase()} and background color is ${validatedData.secondaryColor.toLowerCase()}. The company name is ${validatedData.companyName}, make sure to include the company name in the logo. ${validatedData ? `Additional info: ${validatedData.additionalInfo}` : ""}`;
     
     const response = await client.images.generate({
       model: validatedData.model,
