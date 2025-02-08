@@ -109,6 +109,33 @@ yarn dev
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Docker Deployment
+
+1. Build the Docker Compose image:
+
+```bash
+# Start all services in detached mode
+docker compose up -d --build
+
+# Check logs
+docker compose logs -f app
+```
+
+2. Or, build the Docker image and run the container:
+
+```bash
+# 1. Build the Docker image
+docker build -t logoai .
+
+# 2. Run the container
+docker run -p 3000:3000 \
+  -e POSTGRES_URL=$POSTGRES_URL \
+  -e NEBIUS_API_KEY=$NEBIUS_API_KEY \
+  -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY \
+  -e CLERK_SECRET_KEY=$CLERK_SECRET_KEY \
+  logoai
+```
+
 ## Project Structure
 
 ```
