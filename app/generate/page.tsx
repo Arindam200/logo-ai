@@ -248,7 +248,7 @@ export default function Home() {
       if (result.success && result.data) {
         const a = document.createElement("a");
         a.href = result.data;
-        a.download = `${companyName.trim()}-logo.png`;
+        a.download = `${companyName.trim()}-logo.webp`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
