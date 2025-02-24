@@ -1,6 +1,6 @@
 "use client";
 
-// import Image, { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface LogoImageProps {
   src: string;
@@ -10,7 +10,7 @@ interface LogoImageProps {
 export function LogoImage({ src, index }: LogoImageProps) {
   return (
     <div className="relative aspect-[4/3] h-full overflow-hidden rounded-xl group">
-      <img
+      <Image
         src={src}
         alt={`Artwork ${index + 1}`}
         fill
