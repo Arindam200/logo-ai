@@ -1,21 +1,43 @@
-MIT License
+Copyright © 2025 Arindam Majumder
 
-Copyright (c) 2025 Arindam Majumder 
+All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software and its associated materials ("Software") are proprietary to Arindam Majumder and are licensed strictly for personal, educational, or internal evaluation use. No part of the Software may be used, copied, modified, distributed, sublicensed, or otherwise exploited for any commercial purpose, including but not limited to selling, hosting, reselling, monetizing, or offering Software as part of a paid service or product, without prior express written consent from the copyright holder.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Definitions:
+1.1. "Software" means all files, source code, object code, documentation, assets, and any associated materials released under this license.
+1.2. "You" (or "Your") means any individual or entity using the Software under the terms of this license.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+License Grant:
+2.1. Arindam Majumder grants You a limited, non-exclusive, non-transferable, revocable license to:
+a) Use the Software solely for non-commercial purposes, including internal development, learning, and evaluation.
+b) Modify or fork the Software for personal or educational use only.
+2.2. This License does NOT permit:
+
+Commercial use, direct or indirect.
+
+Redistribution, reselling, sublicensing, or packaging the Software for profit.
+
+Offering the Software as a service (SaaS), integration, or feature in a paid product.
+
+Prohibited Uses:
+3.1. You may not:
+a) Use the Software or any part of it in a commercial offering or as part of a product or service sold or monetized in any way.
+b) Remove or obscure copyright, license, or proprietary notices.
+c) Rebrand or claim ownership over the Software.
+
+Ownership: 4.1. All intellectual property rights in the Software remain exclusively with Arindam Majumder. 4.2. This license does not grant you any rights to Arindam's trademarks, service marks, logos, or branding.
+
+Disclaimer of Warranty:
+The Software is provided "as is" without warranty of any kind. Arindam disclaims all warranties, express or implied, including merchantability, fitness for a particular purpose, and non-infringement. Use at your own risk.
+
+Limitation of Liability:
+In no event shall Arindam Majumder be liable for any damages, including but not limited to direct, indirect, incidental, or consequential damages, arising from the use or inability to use the Software.
+
+Termination: This License terminates automatically if You breach any of its terms. Upon termination, you must delete all copies of the Software and cease any use.
+
+Governing Law:
+This License shall be governed by the laws of India, without regard to conflict of law principles.
+
+Contact: For commercial licensing or partnership inquiries, contact Arindam Majumder Email: hi@arindammajumder.com
+
